@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Examen Herramientas Productividad</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="dist/css/mystyle.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Mandali" rel="stylesheet">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+		<!--REQUIRED STYLE SHEETS-->
+</head>
+<body>
+	<header>
+		<div class="navbar  navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 col-xs-12">
+						<div class="container-fluid">
+						    <div class="col-lg-9 col-xs-9">
+						    	<nav role="navigation" class="navbar">
+							        <div class="navbar-header">
+							            <a href="#" class="navbar-brand">
+							            	<img class="logo" src="dist/img/logoblanco.png">
+							            </a>
+							        </div> 
+							    </nav>
+						    </div>
+						    <div class="col-lg-3 col-xs-3">
+						    		<div>
+							            <a class="tooltips" href="#"> 
+							            	<i href="#"class="fa fa-info-circle" aria-hidden="true"></i>
+											<div>
+												<img src="dist/img/logoazuloscuro.png" style="width: 187px;height: 42px;margin: 13px;";">
+												<p class="texto-tips">La nueva forma de moverte  en la ciudad. con <strong>Carrocomp!</strong> puedes compartir tus viajes con tus amigos y cobrar el costo equivalentemente.</p>
+											</div>
+										</a>
+							        </div>
+						    </div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<!--END NAV SECTION -->
+	</header>
+	<div id="home-sec">   
+		<div class="container">
+
+  <div class="container">
+    <div class="row">			
+		</div>
+	</div><!--END HOME SECTION-->  
+
+	<section id="info"  >
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<form class="text-center" id="distance_form">
+						<span class="text-center label">ORIGEN</span>
+					    <input id="origin" type="text" name="origin"/>
+					    <br/>
+						<span class="text-center label">DESTINO</span>
+					    <input id="destination" type="text" name="destination"/>
+					    <br/>
+					    <input class="buscar text-center" type="submit" onclick="function ()" id="enviar" value="Buscar"/>
+					    <div class="text-center" id="result">
+					</div>
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</section><!--END ABOUT SECTION-->
+
+	<section id="calculator" >
+		<div class="container">
+		</div>
+
+
+	
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+ 
+<script src='http://maps.googleapis.com/maps/api/js?sensor=false'></script>
+
+    <script src="js/index.js"></script>
+	</section><!--END PROJECT SECTION-->
+	<div id="footer">
+		2014 www.yourdomain.com | All Right Reserved  
+	</div>
+
+	<!--Se determina y escribe la localizacion-->
+		<!--MAPAAAA-->
+		<div class="container-fluid">
+			<div id='ubicacion'></div>
+		</div>
+		
+	<!--JAVASCRIPT PARA MAPA -->
+		 <script type="text/javascript">
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(mostrarUbicacion);
+		} else {alert("¡Error! Este navegador no soporta la Geolocalización.");}
+		function mostrarUbicacion(position) {
+		var times = position.timestamp;
+		var latitud = position.coords.latitude;
+		var longitud = position.coords.longitude;
+		var altitud = position.coords.altitude; 
+		var exactitud = position.coords.accuracy; 
+		var div = document.getElementById("ubicacion");
+		function refrescarUbicacion() { 
+			navigator.geolocation.watchPosition(mostrarUbicacion);} 
+		</script> -->
+		<!--Se escribe un mapa con la localizacion anterior-->
+		<div id="demo"></div>
+		<div id="mapholder"></div>
+		<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
+			var x=document.getElementById("demo");
+			function cargarmap(){
+				navigator.geolocation.getCurrentPosition(showPosition,showError);
+				function showPosition(position){
+					lat=position.coords.latitude;
+					lon=position.coords.longitude;
+					latlon=new google.maps.LatLng(lat, lon)
+					mapholder=document.getElementById('mapholder')
+					mapholder.style.height='100vh';
+					mapholder.style.width='500wh';
+					var myOptions={
+						center:latlon,zoom:14,
+						mapTypeId:google.maps.MapTypeId.ROADMAP,
+						mapTypeControl:false,
+						navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+					};
+					var map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
+					var marker=new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+				}
+				function showError(error){
+					switch(error.code){
+						case error.PERMISSION_DENIED:
+						x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
+						break;
+						case error.POSITION_UNAVAILABLE:
+						x.innerHTML="La información de la localización no esta disponible."
+						break;
+						case error.TIMEOUT:
+						x.innerHTML="El tiempo de petición ha expirado."
+						break;
+						case error.UNKNOWN_ERROR:
+						x.innerHTML="Ha ocurrido un error desconocido."
+						break;
+					}
+				}}
+
+				cargarmap();
+			</script> 
+
+	<!-- END FOOTER SECTION -->
+	<script src='http://maps.googleapis.com/maps/api/js?sensor=false'></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="dist/js/script.min.js"></script>
+<script type="text/javascript" src="src/js/js.js"></script>
+</body>
+</html>
+
+
